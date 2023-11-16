@@ -10,7 +10,7 @@ public class World {
 	 * @return the room the player starts the game in
 	 */
 	public static Room buildWorld() {
-		Room lobby = new Room("lobby", "The hotel's lobby. Doorways lead east to a lounge"
+		Room lobby = new Room("HOTEL_LOBBY", "The hotel's lobby. Doorways lead east to a lounge"
 				+ " and west to a bar. There is a hallway to the north and a "
 				+ " staircase up to the second floor.");
 		Room lounge = new Room("lounge", "A comfortable lounge with armchairs, a couch, and"

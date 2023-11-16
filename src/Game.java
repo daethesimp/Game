@@ -1,4 +1,12 @@
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -13,6 +21,79 @@ public class Game {
 	
 	// Player's inventory of items.
 	private static ArrayList<Item> inventory = new ArrayList<Item>();
+	public static HashMap<String, String> roomDesc = new HashMap<>();
+	public static HashMap<String, Room> roomObjects = new HashMap<>(); //keys of the map will be room names and the values will be room objects
+	
+	
+	
+	public static void setHashMap(HashMap<String, String> roomDesc) {
+		roomDesc.equals(roomDesc);
+	}
+	
+	public static void HashMapAdd(String roomID, String desc) {
+		roomDesc.put(roomID, desc);
+	}
+	
+	public static String getValue(String roomID) {
+		return roomDesc.get(roomID);
+	}
+	
+	//String getValue("HOTEL_LOUNGE");
+	
+	public static void readFile() {
+		Scanner scan;
+		try {
+			scan = new Scanner(new File("roomDesc"));
+			while(scan.hasNextLine()) {
+				String lineID = scan.nextLine();
+				String lineDesc = scan.nextLine();
+				String line = scan.nextLine();
+				roomDesc.put(lineID, lineDesc);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void saveGame() {
+		try {
+			File saveFile = new File("save");
+			saveFile.createNewFile();
+			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(saveFile));
+			stream.writeObject(currentRoom);
+			stream.writeObject(inventory);
+			stream.writeObject(roomObjects);
+		} catch (FileNotFoundException ex) {
+			Game.print("Error accessing save file.");
+		} catch (IOException ex) {
+			Game.print("Error creating save file.");
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void loadGame() {
+		try {
+			File loadFile = new File("load");
+			loadFile.createNewFile();
+			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(loadFile));
+			currentRoom = (Room) stream.readObject();
+			inventory = (ArrayList<Item>) stream.readObject();
+			roomObjects = (HashMap<String, Room>) stream.readObject();
+		} catch (FileNotFoundException ex) {
+			Game.print("Error accessing load file.");
+		} catch (IOException ex) {
+			Game.print("Error creating load file.");
+			ex.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 
 	/**
 	 * Returns the room the player is currently in.
@@ -78,11 +159,14 @@ public class Game {
 	 *      exit the game: x
 	 */
 	public static void main(String[] args) {
+		readFile();
 		Scanner scan = new Scanner(System.in);
 		String playerCommand = "a";
 		String itemName;
 		Item i;
 		currentRoom = World.buildWorld();
+		System.out.println("Welcome to the Hotel Adventure! Your goal is to explore the hotel, interact with characters, and uncover the mysteries within. Navigate through different rooms and areas to discover the secrets hidden within the hotel. Can you solve puzzles, interact with the characters, and find your way to the ultimate destination? Good luck!");
+		System.out.print("Controls: move to an adjacent room: e, w, n, s, u, d || display player's inventory: i || take an item: take || look at an item: look || use an item: use || exit the game: x");
 		System.out.println(currentRoom);
 		while(!playerCommand.equals("x")) {
 			System.out.print("What do you want to do? ");
@@ -133,6 +217,14 @@ public class Game {
 				break;
 			case "x":
 				System.out.println("Okay. Bye!");
+				break;
+			case"save":
+				Game.saveGame();
+				Game.print("Game saved!");
+				break;
+			case"load":
+				Game.loadGame();
+				Game.print("Game load!");
 				break;
 			default:
 				System.out.println("Invalid command.");

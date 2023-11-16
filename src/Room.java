@@ -35,6 +35,7 @@ public class Room {
 		desc = d;
 		locked = false;
 		roomItems = new HashMap<String, Item>();
+		Game.roomObjects.put(n, this);
 	}
 	
 	/**
@@ -108,7 +109,7 @@ public class Room {
 	 * @return Room's description
 	 */
 	public String getDesc() {
-		return desc;
+		return Game.roomDesc.get(name);
 	}
 	
 	/**
@@ -150,7 +151,7 @@ public class Room {
 	}
 	
 	public String toString() {
-		return desc;
+		return Game.roomDesc.get(name);
 	}
 	
 }
