@@ -19,5 +19,15 @@ public class Chain extends Item{
 			}
 		}
 	}
+	
+	public void look() {
+		if(Game.getCurrentRoom().getName().equals("hall")) {
+			if(isUsed()) {
+				Game.print("the chain is on the floor covered in goo");
+			} else {
+			Game.print("the chain is hanging from the ceiling waiting to be pulled!");
+			}
+		}
+	}
 
 }

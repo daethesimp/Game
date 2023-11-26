@@ -20,7 +20,8 @@ public class Game {
 	private static Room currentRoom;
 	
 	// Player's inventory of items.
-	private static ArrayList<Item> inventory = new ArrayList<Item>();
+	public static Scanner scan = new Scanner(System.in);
+	public static ArrayList<Item> inventory = new ArrayList<Item>();
 	public static HashMap<String, String> roomDesc = new HashMap<>();
 	public static HashMap<String, Room> roomObjects = new HashMap<>(); //keys of the map will be room names and the values will be room objects
 	
@@ -138,6 +139,10 @@ public class Game {
 		return null;
 	}
 	
+	public static boolean hasItem(String name) {
+		return getItem(name) != null;
+	}
+	
 	public static void addItem(Item name) {
 		inventory.add(name);
 	}
@@ -160,13 +165,12 @@ public class Game {
 	 */
 	public static void main(String[] args) {
 		readFile();
-		Scanner scan = new Scanner(System.in);
 		String playerCommand = "a";
 		String itemName;
 		Item i;
 		currentRoom = World.buildWorld();
 		System.out.println("Welcome to the Hotel Adventure! Your goal is to explore the hotel, interact with characters, and uncover the mysteries within. Navigate through different rooms and areas to discover the secrets hidden within the hotel. Can you solve puzzles, interact with the characters, and find your way to the ultimate destination? Good luck!");
-		System.out.print("Controls: move to an adjacent room: e, w, n, s, u, d || display player's inventory: i || take an item: take || look at an item: look || use an item: use || exit the game: x");
+		System.out.println("Controls: move to an adjacent room: e, w, n, s, u, d || display player's inventory: i || take an item: take || look at an item: look || use an item: use || exit the game: x");
 		System.out.println(currentRoom);
 		while(!playerCommand.equals("x")) {
 			System.out.print("What do you want to do? ");
@@ -184,8 +188,7 @@ public class Game {
 			case "take":
 				itemName = words[1];
 				if (currentRoom.hasItem(itemName)) {
-					inventory.add(currentRoom.removeItem(itemName));
-					System.out.println("You pick up the "+itemName+".");
+					currentRoom.getItem(itemName).take();
 				} else {
 					System.out.println("There is no "+itemName+"!");
 				}
@@ -201,10 +204,15 @@ public class Game {
 				break;
 			case "use":
 				i = getItem(words[1]);
-				if (i == null )
-					System.out.println("You don't have the "+words[1]+".");
-				else
+				if (i == null) {
+					i = currentRoom.getItem(words[1]);
+				}
+				if(i == null) {
+					System.out.print("You can use this item right now!");
+					
+				} else {
 					i.use();
+				}
 				break;
 			case "i":
 				if (inventory.isEmpty()) {

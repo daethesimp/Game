@@ -57,16 +57,17 @@ public class Item {
 	 * Player uses this item.
 	 */
 	public void use() {
-		/*if (name.equals("wand"))
-			if(Game.getCurrentRoom().getName().equals("lobby")) {
-		       System.out.println("You wave the wand and the lounge magically unlocks!");
-		       Room lounge = Game.getCurrentRoom().getExit('e');
-		       lounge.setLocked(false);
-			} else {
-				System.out.println("You wave the wand around.");
-			}
-		else*/
 			System.out.println("You can't use the "+name+", yet...");
+	}
+	
+	public void take() {
+		if(isHeavy()) {
+			Game.print("This is too heavy for you!");
+		}
+		else {
+			Game.inventory.add(Game.getCurrentRoom().removeItem(name));
+			System.out.println("You pick up the "+name+".");
+		}
 	}
 	
 	/**

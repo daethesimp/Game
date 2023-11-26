@@ -109,7 +109,11 @@ public class Room {
 	 * @return Room's description
 	 */
 	public String getDesc() {
-		return Game.roomDesc.get(name);
+		return Game.roomDesc.get(desc);
+	}
+	
+	public void setDesc(String d) {
+		desc = d;
 	}
 	
 	/**
@@ -151,7 +155,7 @@ public class Room {
 	}
 	
 	public String toString() {
-		return Game.roomDesc.get(name);
+		return Game.roomDesc.get(desc);
 	}
 	
 }

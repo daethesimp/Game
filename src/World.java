@@ -10,31 +10,33 @@ public class World {
 	 * @return the room the player starts the game in
 	 */
 	public static Room buildWorld() {
-		Room lobby = new Room("HOTEL_LOBBY", "The hotel's lobby. Doorways lead east to a lounge"
-				+ " and west to a bar. There is a hallway to the north and a "
-				+ " staircase up to the second floor.");
-		Room lounge = new Room("lounge", "A comfortable lounge with armchairs, a couch, and"
-				+ " a delightful fire. An old man with a newspaper in his lap, and a hammer on the arm of the chair"
-				+ " sleeps in one of the armchairs.");
-		Room bar = new Room("bar", "The hotel bar! There is a long bar along the west wall next to a music box"
-				+ " and a door labelled 'Rest Room' to the north. A doorway to the"
-				+ " east leads back to the lobby.");
-		Room hall = new Room("hall", "A dead-end hallway. A chain hanging from the ceiling. There are doors in the east and"
-				+ " west walls. You can return south to the lobby.");
-		Room hall2 = new Room("hall2", "You on the hotel's second floor! A staircase leads"
-				+ " back down to the lobby.");
-		Room restroom = new Room("restroom", "What a pleasant rest room! A huge shower! A sparkly sink! So clean! So fresh!");
+		Room lobby = new Room("lobby", "HOTEL_LOBBY");
+		Room lounge = new Room("lounge", "HOTEL_LOUNGE");
+		Room bar = new Room("bar", "HOTEL_BAR");
+		Room hall = new Room("hall", "HOTEL_HALL");
+		Room hall2 = new Room("hall2", "HOTEL_HALL_2");
+		Room restroom = new Room("restroom", "HOTEL_RESTROOM");
+		Room office = new Room("office" , "HOTEL_OFFICE");
+		Room kitchen = new Room("kitchen" , "HOTEL_KITCHEN");
+		Room basement = new Room("basement" , "HOTEL_BASEMENT");
+		Room attic = new Room("attic" , "HOTEL_ATTIC");
+		Room outside = new Room("outside" , "HOTEL_OUTSIDE");
+		Room secretChamber = new Room("secret chamber" , "HOTEL_SECRET_CHAMBER");
+		Room plaza = new Room("plaza" , "HOTEL_PLAZA");
 		
 		lobby.addExit(lounge, 'e');
 		lobby.addExit(bar, 'w');
 		lobby.addExit(hall, 'n');
 		lobby.addExit(hall2, 'u');
+		lobby.addExit(office, 's');
+		lobby.addExit(basement, 'd');
 		
 		lounge.addExit(lobby, 'w');
 		Item newspaper = new Item("newspaper");
 		newspaper.setDesc("It's a newspaper. Made of paper. What's up with that?");
 		lounge.addItem(newspaper);
-		lounge.setLocked(true);
+		//lounge.setLocked(true);
+		lounge.addExit(kitchen, 'n');
 		
 		bar.addExit(lobby, 'e');
 		bar.addExit(restroom, 'n');
@@ -48,8 +50,34 @@ public class World {
 		restroom.addItem(wand);
 		
 		hall.addExit(lobby, 's');
+		Chain c = new Chain();
+		c.setHeavy(true);
+		hall.addItem(c);
+		
 		
 		hall2.addExit(lobby, 'd');
+		hall2.addExit(plaza, 'e');
+		plaza.setLocked(true);
+		hall2.addExit(secretChamber, 'w');
+		secretChamber.setLocked(true);
+		hall2.addExit(attic, 'u');
+		//hall2.addExit(, 0);
+		
+		kitchen.addExit(lounge, 's');
+		
+		basement.addExit(lobby, 'u');
+		
+		office.addExit(lobby, 'n');
+		
+		attic.addExit(hall2, 'd');
+		Item chest = new Item("chest");
+		chest.setDesc("wooden chest with heavnly sounds");
+		attic.addItem(chest);
+		
+		outside.addExit(hall2, 'w');
+		outside.addExit(plaza, 'd');
+		
+    	secretChamber.addExit(hall2, 'e');
 		
 		return lobby;
 	}
