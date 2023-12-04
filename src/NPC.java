@@ -6,6 +6,19 @@ public class NPC {
 	
 	public NPC(String name) {
 		this.name = name;
+		this.desc = desc;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+	
+	public void look() {
+		Game.print(desc);
 	}
 	
 	public void talk() {
@@ -34,6 +47,9 @@ public class NPC {
 			Game.print("Option " +(i+1)+" : "+options[i]);
 		}
 		Game.print("Enter an option (1-"+options);
+		int option = Game.scan.nextInt();
+		Game.scan.nextLine(); // Flush Input Buffer
+		response(option);
 	}
 	
 	

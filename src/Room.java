@@ -23,6 +23,7 @@ public class Room {
 	
 	// Map of items placed in this room.
 	private HashMap<String, Item> roomItems;
+	private HashMap<String,NPC> roomNPC;
 	
 	/**
 	 * Constructor - creates a new Room object.
@@ -35,6 +36,7 @@ public class Room {
 		desc = d;
 		locked = false;
 		roomItems = new HashMap<String, Item>();
+		roomNPC = new HashMap<String, NPC>();
 		Game.roomObjects.put(n, this);
 	}
 	
@@ -101,6 +103,22 @@ public class Room {
 	 */
 	public boolean hasItem(String name) {
 		return roomItems.containsKey(name);
+	}
+	
+	public NPC getNPC(String npc) {
+		return roomNPC.get(npc);
+	}
+	
+	public NPC removeNPC(String name) {
+		return roomNPC.remove(name);
+	}
+	
+	public void addNPC(NPC i) {
+		roomNPC.put(i.getName(), i);
+	}
+	
+	public boolean hasNPC(String name) {
+		return roomNPC.containsKey(name);
 	}
 	
 	/**

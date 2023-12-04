@@ -167,10 +167,12 @@ public class Game {
 		readFile();
 		String playerCommand = "a";
 		String itemName;
+		String NPCname;
 		Item i;
+		NPC j;
 		currentRoom = World.buildWorld();
 		System.out.println("Welcome to the Hotel Adventure! Your goal is to explore the hotel, interact with characters, and uncover the mysteries within. Navigate through different rooms and areas to discover the secrets hidden within the hotel. Can you solve puzzles, interact with the characters, and find your way to the ultimate destination? Good luck!");
-		System.out.println("Controls: move to an adjacent room: e, w, n, s, u, d || display player's inventory: i || take an item: take || look at an item: look || use an item: use || exit the game: x");
+		System.out.println("Controls: move to an adjacent room: e, w, n, s, u, d || display player's inventory: i || talk to an character: talk || take an item: take || look at an item: look || use an item: use || exit the game: x");
 		System.out.println(currentRoom);
 		while(!playerCommand.equals("x")) {
 			System.out.print("What do you want to do? ");
@@ -185,6 +187,14 @@ public class Game {
 			case "d":
 				move(playerCommand.charAt(0));
 				break;
+			case "talk":
+				NPCname = words[1];
+				if(currentRoom.hasNPC(NPCname)) {
+					currentRoom.getNPC(NPCname).talk();
+				} else {
+					System.out.print("There is no" + NPCname + "!");
+				}
+				break;
 			case "take":
 				itemName = words[1];
 				if (currentRoom.hasItem(itemName)) {
@@ -195,6 +205,13 @@ public class Game {
 				break;
 			case "look":
 				i = getItem(words[1]);
+				NPCname = words[1];
+				//j = getNPC(words[1]);
+				if(currentRoom.hasNPC(NPCname)){
+					currentRoom.getNPC(NPCname).look();
+				} else {
+					System.out.println("There is no" + NPCname+ "!");
+				}
 				if (i == null)
 					i = currentRoom.getItem(words[1]);
 				if (i == null)

@@ -35,6 +35,10 @@ public class World {
 		Item newspaper = new Item("newspaper");
 		newspaper.setDesc("It's a newspaper. Made of paper. What's up with that?");
 		lounge.addItem(newspaper);
+		NPC puppy = new NPC("puppy");
+		lounge.addNPC(puppy);
+		NPC oldman = new NPC("old man");
+		lounge.addNPC(oldman);
 		//lounge.setLocked(true);
 		lounge.addExit(kitchen, 'n');
 		
