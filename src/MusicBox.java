@@ -2,7 +2,7 @@
 public class MusicBox extends Item {
 
 	public MusicBox() {
-		super("music box");
+		super("musicbox");
 	}
 
 	public void look() {

@@ -10,14 +10,10 @@ public class Ladder extends Item {
 	}
 	
 	public void use() {
-		if(Game.getCurrentRoom().getName().equals("outside")) {
-			Game.print("You just walked off a 2 story building...");
-			Game.print(Game.roomDesc.get("HOTEL_LOSE"));
-		} else {
+		if(Game.hasItem("ladder")) {
 			if(Game.getCurrentRoom().getName().equals("outside")) {
-				if(Game.hasItem("ladder")) {
 					Game.print("You place the ladder against the wall leading down to the ground level.");
-				}
+					Game.getCurrentRoom().addExit(Game.roomObjects.get("plaza"), 'd');
 			}
 		}
 	}

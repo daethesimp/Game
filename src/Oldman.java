@@ -2,7 +2,7 @@
 public class Oldman extends NPC{
 	
 	public Oldman() {
-		super("old man");
+		super("oldman", "a oldman");
 	}
 	
 	public void talk() {

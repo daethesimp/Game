@@ -4,7 +4,7 @@ public class NPC {
 	private String name;
 	private String desc;
 	
-	public NPC(String name) {
+	public NPC(String name, String desc) {
 		this.name = name;
 		this.desc = desc;
 	}
@@ -46,10 +46,9 @@ public class NPC {
 		for(int i=0; i<options.length; i++) {
 			Game.print("Option " +(i+1)+" : "+options[i]);
 		}
-		Game.print("Enter an option (1-"+options);
-		int option = Game.scan.nextInt();
-		Game.scan.nextLine(); // Flush Input Buffer
-		response(option);
+		Game.print("Enter an option: ");
+		//int option = Game.scan.nextInt();
+		//Game.scan.nextLine(); // Flush Input Buffer
 	}
 	
 	

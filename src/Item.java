@@ -50,14 +50,14 @@ public class Item {
 	 * Player looks at this item.
 	 */
 	public void look() {
-		System.out.println(desc);
+		Game.print(desc);
 	}
 	
 	/**
 	 * Player uses this item.
 	 */
 	public void use() {
-			System.out.println("You can't use the "+name+", yet...");
+			Game.print("You can't use the "+name+", yet...");
 	}
 	
 	public void take() {
@@ -66,7 +66,7 @@ public class Item {
 		}
 		else {
 			Game.inventory.add(Game.getCurrentRoom().removeItem(name));
-			System.out.println("You pick up the "+name+".");
+			Game.print("You pick up the "+name+".");
 		}
 	}
 	

@@ -23,6 +23,7 @@ public class World {
 		Room outside = new Room("outside" , "HOTEL_OUTSIDE");
 		Room secretChamber = new Room("secret chamber" , "HOTEL_SECRET_CHAMBER");
 		Room plaza = new Room("plaza" , "HOTEL_PLAZA");
+		Room lose = new Room("lose", "HOTEL_LOSE");
 		
 		lobby.addExit(lounge, 'e');
 		lobby.addExit(bar, 'w');
@@ -35,9 +36,11 @@ public class World {
 		Item newspaper = new Item("newspaper");
 		newspaper.setDesc("It's a newspaper. Made of paper. What's up with that?");
 		lounge.addItem(newspaper);
-		NPC puppy = new NPC("puppy");
+		Item hammer = new Hammer();
+		lounge.addItem(hammer);
+		NPC puppy = new Puppy();
 		lounge.addNPC(puppy);
-		NPC oldman = new NPC("old man");
+		NPC oldman = new Oldman();
 		lounge.addNPC(oldman);
 		//lounge.setLocked(true);
 		lounge.addExit(kitchen, 'n');
@@ -47,10 +50,13 @@ public class World {
 		Item bottle = new Item("bottle");
 		bottle.setDesc("An opaque glass bottle. Feels empty.");
 		bar.addItem(bottle);
+		Item musicbox = new Item("musicbox");
 		
 		restroom.addExit(bar, 's');
 		Item wand = new Item("wand");
 		wand.setDesc("The wand glows with an eerie light.");
+		Item shower = new Item("shower");
+		restroom.addItem(shower);
 		restroom.addItem(wand);
 		
 		hall.addExit(lobby, 's');
@@ -60,8 +66,7 @@ public class World {
 		
 		
 		hall2.addExit(lobby, 'd');
-		hall2.addExit(plaza, 'e');
-		plaza.setLocked(true);
+		hall2.addExit(outside, 'e');
 		hall2.addExit(secretChamber, 'w');
 		secretChamber.setLocked(true);
 		hall2.addExit(attic, 'u');
@@ -70,6 +75,8 @@ public class World {
 		kitchen.addExit(lounge, 's');
 		
 		basement.addExit(lobby, 'u');
+		Item flashlight = new Item("flashlight");
+		basement.addItem(flashlight);
 		
 		office.addExit(lobby, 'n');
 		
@@ -78,10 +85,14 @@ public class World {
 		chest.setDesc("wooden chest with heavnly sounds");
 		attic.addItem(chest);
 		
-		outside.addExit(hall2, 'w');
-		outside.addExit(plaza, 'd');
+		lose.addExit(outside, 'u');
 		
-    	secretChamber.addExit(hall2, 'e');
+		outside.addExit(hall2, 'w');
+		outside.addExit(lose, 'd');
+		
+		secretChamber.addExit(hall2, 'e');
+    	Item ladder = new Ladder();
+    	secretChamber.addItem(ladder);
 		
 		return lobby;
 	}

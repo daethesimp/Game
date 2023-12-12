@@ -23,13 +23,13 @@ HOTEL_ATTIC
 Entering the hotel's attic, you're greeted by dim light filtering through a small window. Dusty trunks reveal forgotten items, including a vintage chest filled with faded photographs and letters that whisper of the hotel's history. In one corner, a neglected gramophone hints at a bygone era.
 #
 HOTEL_BASEMENT
-Descending into the dimly lit basement, the scent of dampness fills the air. Crates and barrels scatter the space, holding secrets of bygone years. A forgotten record player sits in a shadowy corner, its needle poised in stillness.
+Descending into the dimly lit basement, the scent of dampness fills the air. Crates and barrels scatter the space, holding secrets of bygone years. A forgotten record player sits in a shadowy corner along with a flashlight, its needle poised in stillness.
 #
 HOTEL_OFFICE
 It is dark! Use the Flashlight!
 #
 HOTEL_OFFICE_2
-In the hotel's security office, monitors display footage from various cameras. A locked door hints at a room with valuable items, and a nearby keycard reader suggests a means of access. On the desk, a computer holds logs of recent incidents, and a shelf of master keys, along with a flashlight, provides tools for potential exploration. The room crackles with the potential to uncover the hotel's secrets
+In the hotel's security office, monitors display footage from various cameras. A locked door hints at a room with valuable items, and a nearby keycard reader suggests a means of access. On the desk, a computer holds logs of recent incidents, and a shelf of master keys, provides tools for potential exploration. The room crackles with the potential to uncover the hotel's secrets
 #
 HOTEL_OUTSIDE
 Stepping through the hotel's open doorway, you find yourself on the edge of the bulding, damn near falling to your death.
@@ -38,7 +38,7 @@ HOTEL_LOSE
 YOU JUST DIED FROM FALL DAMAGE DUMB ASS
 #
 HOTEL_PLAZA
-You reach your way in the Final Revelation Plaza, a serene garden bathed in an ethereal glow. Ancient statues line the periphery, each holding a cryptic symbol. The air is charged with a mix of anticipation and tranquility. At the center stands an ancient, overgrown tree with shimmering leaves. Each leaf holds a fragment of the hotel's secrets. As you approach, the leaves begin to unfurl, revealing the interconnected tales of guests, staff, and the hotel's mysterious past. The fountain in the heart of the plaza springs to life, its water reflecting the journey you've undertaken.
+Congrats! You reach your way in the Final Revelation Plaza, a serene garden bathed in an ethereal glow. Ancient statues line the periphery, each holding a cryptic symbol. The air is charged with a mix of anticipation and tranquility. At the center stands an ancient, overgrown tree with shimmering leaves. Each leaf holds a fragment of the hotel's secrets. As you approach, the leaves begin to unfurl, revealing the interconnected tales of guests, staff, and the hotel's mysterious past. The fountain in the heart of the plaza springs to life, its water reflecting the journey you've undertaken. ROLL THE CREDITS!
 #
 HOTEL_SECRET_CHAMBER
 You stumble upon a clandestine room hidden on the second floor, the Secret Escape Chamber. Dimly lit, the air in this chamber is tinged with secrecy. In one corner, a sturdy ladder reaches upward, disappearing into darkness. The sound of distant footsteps echoes through the stone walls, emphasizing the covert nature of this discovery.

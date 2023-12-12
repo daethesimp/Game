@@ -15,9 +15,12 @@ import java.util.Scanner;
  * Contains the player's inventory and the main method.
  */
 public class Game {
+	
+	public static String NPCname;
 
 	// Room player is currently in.
 	private static Room currentRoom;
+	private static GUI gui;
 	
 	// Player's inventory of items.
 	public static Scanner scan = new Scanner(System.in);
@@ -115,13 +118,13 @@ public class Game {
 		Room nextRoom = currentRoom.getExit(direction);
 		if (nextRoom != null) {
 			if(nextRoom.isLocked()) {
-				System.out.println("The room is locked!");
+				Game.print("The room is locked!");
 			} else {
 				currentRoom = nextRoom;
-				System.out.println(currentRoom);
+				Game.print(currentRoom);
 			}
 		} else {
-			System.out.println("You can't go that way!");
+			Game.print("You can't go that way!");
 		}
 	}
 	
@@ -147,8 +150,8 @@ public class Game {
 		inventory.add(name);
 	}
 	
-	public static void print(String message) {
-		System.out.println(message+"\n");
+	public static void print(Object message) {
+		gui.print(message.toString());
 	}
 	
 	/**
@@ -163,6 +166,96 @@ public class Game {
 	 *      use an item: use
 	 *      exit the game: x
 	 */
+	
+	public static void proccessCommand(String playerCommand){
+		//playerCommand = "a";
+		String itemName;
+		Item i;
+		NPC j;
+			Game.print("What do you want to do? ");
+			//playerCommand = scan.nextLine();
+			String[] words = playerCommand.split(" ");
+			switch(words[0]) {
+			case "n":
+			case "s":
+			case "e":
+			case "w":
+			case "u":
+			case "d":
+				move(playerCommand.charAt(0));
+				if(Game.getCurrentRoom().getName().equals("plaza")) {
+					gui.endGame();
+				}
+				break;
+			case "talk":
+				NPCname = words[1];
+				if(currentRoom.hasNPC(NPCname)) {
+					currentRoom.getNPC(NPCname).talk();
+				} else {
+					gui.print("There is no" + NPCname + "!");
+				}
+				break;
+			case "take":
+				itemName = words[1];
+				if (currentRoom.hasItem(itemName)) {
+					currentRoom.getItem(itemName).take();
+				} else {
+					gui.print("There is no "+itemName+"!");
+				}
+				break;
+			case "look":
+				i = getItem(words[1]);
+				NPCname = words[1];
+				//j = getNPC(words[1]);
+				if(currentRoom.hasNPC(NPCname)){
+					currentRoom.getNPC(NPCname).look();
+				}
+				else if (i == null) {
+					i = currentRoom.getItem(words[1]);
+				 if (i == null)
+					gui.print("There is no "+words[1]+"!");
+				else
+					i.look();
+				}
+				break;
+			case "use":
+				i = getItem(words[1]);
+				if (i == null) {
+					i = currentRoom.getItem(words[1]);
+				}
+				if(i == null) {
+					gui.print("You can use this item right now!");
+					
+				} else {
+					i.use();
+				}
+				break;
+			case "i":
+				Game.print("This is your inventory: ");
+				if (inventory.isEmpty()) {
+					gui.print("You are carrying nothing!");
+				} else {
+					for(Item it : inventory) {
+						Game.print(it);
+					}
+				}
+				break;
+			case "x":
+				gui.print("Okay. Bye!");
+				break;
+			case"save":
+				Game.saveGame();
+				gui.print("Game saved!");
+				break;
+			case"load":
+				Game.loadGame();
+				gui.print("Game load!");
+				break;
+			default:
+				gui.print("Invalid command.");
+			}
+		}
+	
 	public static void main(String[] args) {
 		readFile();
 		String playerCommand = "a";
@@ -170,12 +263,13 @@ public class Game {
 		String NPCname;
 		Item i;
 		NPC j;
+		gui = new GUI();
 		currentRoom = World.buildWorld();
-		System.out.println("Welcome to the Hotel Adventure! Your goal is to explore the hotel, interact with characters, and uncover the mysteries within. Navigate through different rooms and areas to discover the secrets hidden within the hotel. Can you solve puzzles, interact with the characters, and find your way to the ultimate destination? Good luck!");
-		System.out.println("Controls: move to an adjacent room: e, w, n, s, u, d || display player's inventory: i || talk to an character: talk || take an item: take || look at an item: look || use an item: use || exit the game: x");
-		System.out.println(currentRoom);
+		Game.print("Welcome to the Hotel Adventure! Your goal is to explore the hotel, interact with characters, and uncover the mysteries within. Navigate through different rooms and areas to discover the secrets hidden within the hotel. Can you solve puzzles, interact with the characters, and find your way to the ultimate destination? Good luck!");
+		Game.print("Controls: move to an adjacent room: e, w, n, s, u, d || display player's inventory: i || talk to an character: talk || take an item: take || look at an item: look || use an item: use || exit the game: x");
+		Game.print(currentRoom);
 		while(!playerCommand.equals("x")) {
-			System.out.print("What do you want to do? ");
+			//ppGame.print("What do you want to do? ");
 			playerCommand = scan.nextLine();
 			String[] words = playerCommand.split(" ");
 			switch(words[0]) {
@@ -192,7 +286,7 @@ public class Game {
 				if(currentRoom.hasNPC(NPCname)) {
 					currentRoom.getNPC(NPCname).talk();
 				} else {
-					System.out.print("There is no" + NPCname + "!");
+					Game.print("There is no " + NPCname + "!");
 				}
 				break;
 			case "take":
@@ -200,7 +294,7 @@ public class Game {
 				if (currentRoom.hasItem(itemName)) {
 					currentRoom.getItem(itemName).take();
 				} else {
-					System.out.println("There is no "+itemName+"!");
+					Game.print("There is no "+itemName+"!");
 				}
 				break;
 			case "look":
@@ -210,12 +304,12 @@ public class Game {
 				if(currentRoom.hasNPC(NPCname)){
 					currentRoom.getNPC(NPCname).look();
 				} else {
-					System.out.println("There is no" + NPCname+ "!");
+					Game.print("There is no " + NPCname+ "!");
 				}
 				if (i == null)
 					i = currentRoom.getItem(words[1]);
 				if (i == null)
-					System.out.println("There is no "+words[1]+"!");
+					Game.print("There is no "+words[1]+"!");
 				else
 					i.look();
 				break;
@@ -225,7 +319,7 @@ public class Game {
 					i = currentRoom.getItem(words[1]);
 				}
 				if(i == null) {
-					System.out.print("You can use this item right now!");
+					Game.print("You can use this item right now!");
 					
 				} else {
 					i.use();
@@ -233,7 +327,7 @@ public class Game {
 				break;
 			case "i":
 				if (inventory.isEmpty()) {
-					System.out.println("You are carrying nothing!");
+					Game.print("You are carrying nothing!");
 				} else {
 					for(Item it : inventory) {
 						System.out.println(it);
@@ -241,7 +335,7 @@ public class Game {
 				}
 				break;
 			case "x":
-				System.out.println("Okay. Bye!");
+				Game.print("Okay. Bye!");
 				break;
 			case"save":
 				Game.saveGame();
@@ -252,7 +346,7 @@ public class Game {
 				Game.print("Game load!");
 				break;
 			default:
-				System.out.println("Invalid command.");
+				Game.print("Invalid command.");
 			}
 		}
 		scan.close();
